@@ -471,6 +471,10 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
   #activities-container::before {
     animation: none !important;
     background-image: none !important;
