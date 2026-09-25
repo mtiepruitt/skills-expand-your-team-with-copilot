@@ -58,19 +58,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return params.get("activity") || "";
   }
 
-  function updateSharedActivityLink(activityName) {
+  function buildActivityUrl(activityName) {
     const url = new URL(window.location.href);
     if (activityName) {
       url.searchParams.set("activity", activityName);
     } else {
       url.searchParams.delete("activity");
     }
+    return url;
+  }
+
+  function updateSharedActivityLink(activityName) {
+    const url = buildActivityUrl(activityName);
     window.history.replaceState({}, "", url);
   }
 
   function buildShareDetails(activityName, details) {
-    const shareUrl = new URL(window.location.href);
-    shareUrl.searchParams.set("activity", activityName);
+    const shareUrl = buildActivityUrl(activityName);
 
     const title = `Mergington Activity: ${activityName}`;
     const text = `Check out ${activityName} at Mergington High School. ${formatSchedule(details)}.`;
@@ -132,15 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      try {
-        await copyTextToClipboard(shareDetails.clipboardText);
-        setHighlightedActivity(activityName);
-        showMessage(`Link copied for ${activityName}.`, "success");
-      } catch (copyError) {
-        console.error("Error sharing activity:", error);
-        console.error("Error copying shared activity:", copyError);
-        showMessage("Sharing was unavailable. Please try again.", "error");
-      }
+      console.error("Error sharing activity:", error);
+      showMessage("Sharing was unavailable. Please try again.", "error");
     }
   }
 
@@ -922,9 +919,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000);
   }
 
-  function setHighlightedActivity(activityName) {
+  function setHighlightedActivity(activityName, shouldRefocus = false) {
     highlightedActivity = activityName;
-    hasFocusedSharedActivity = false;
+    if (shouldRefocus) {
+      hasFocusedSharedActivity = false;
+    }
     updateSharedActivityLink(activityName);
 
     const activityCards = activitiesList.querySelectorAll(".activity-card");
