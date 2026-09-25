@@ -476,9 +476,12 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  header,
+  header *,
+  #activities-container,
+  #activities-container *,
+  .modal,
+  .modal * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0s !important;
