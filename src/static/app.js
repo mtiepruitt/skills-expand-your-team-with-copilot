@@ -59,17 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateSharedActivityLink(activityName) {
-    const url = new URL(window.location.href);
+    const url = new URL(window.location.pathname, window.location.origin);
     if (activityName) {
       url.searchParams.set("activity", activityName);
-    } else {
-      url.searchParams.delete("activity");
     }
     window.history.replaceState({}, "", url);
   }
 
   function buildShareDetails(activityName, details) {
-    const shareUrl = new URL(window.location.href);
+    const shareUrl = new URL(window.location.pathname, window.location.origin);
     shareUrl.searchParams.set("activity", activityName);
 
     const title = `Mergington Activity: ${activityName}`;
@@ -115,18 +113,17 @@ document.addEventListener("DOMContentLoaded", () => {
       text: shareDetails.text,
       url: shareDetails.url,
     };
-    highlightedActivity = activityName;
-    hasFocusedSharedActivity = false;
-    updateSharedActivityLink(activityName);
 
     try {
       if (navigator.share) {
         await navigator.share(sharePayload);
+        setHighlightedActivity(activityName);
         showMessage(`Shared ${activityName}.`, "success");
         return;
       }
 
       await copyTextToClipboard(shareDetails.clipboardText);
+      setHighlightedActivity(activityName);
       showMessage(`Link copied for ${activityName}.`, "success");
     } catch (error) {
       if (error && error.name === "AbortError") {
@@ -135,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         await copyTextToClipboard(shareDetails.clipboardText);
+        setHighlightedActivity(activityName);
         showMessage(`Link copied for ${activityName}.`, "success");
       } catch (copyError) {
         console.error("Error sharing activity:", error);
@@ -922,13 +920,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000);
   }
 
+  function setHighlightedActivity(activityName) {
+    highlightedActivity = activityName;
+    hasFocusedSharedActivity = false;
+    updateSharedActivityLink(activityName);
+
+    const activityCards = activitiesList.querySelectorAll(".activity-card");
+    activityCards.forEach((card) => {
+      const isHighlighted = card.dataset.activity === activityName;
+      card.classList.toggle("highlighted-activity", isHighlighted);
+      if (isHighlighted) {
+        card.tabIndex = -1;
+      } else {
+        card.removeAttribute("tabindex");
+      }
+    });
+  }
+
   function focusSharedActivity() {
     if (!highlightedActivity || hasFocusedSharedActivity) {
       return;
     }
 
-    const activityCard = activitiesList.querySelector(
-      `[data-activity="${CSS.escape(highlightedActivity)}"]`
+    const activityCards = Array.from(
+      activitiesList.querySelectorAll(".activity-card")
+    );
+    const activityCard = activityCards.find(
+      (card) => card.dataset.activity === highlightedActivity
     );
 
     if (!activityCard) {
