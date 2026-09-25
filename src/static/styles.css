@@ -475,7 +475,9 @@ button {
 
   .activity-card,
   .modal,
-  .modal-content {
+  .modal-content,
+  .mascot-showcase,
+  .mascot-showcase .mascot {
     animation: none !important;
     transition: none !important;
   }
