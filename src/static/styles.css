@@ -678,8 +678,8 @@ footer {
   display: flex;
   align-items: center;
   gap: 5px;
-  background-color: rgba(120, 200, 80, 0.18);
-  color: var(--primary-dark);
+  background-color: rgba(63, 127, 36, 0.9);
+  color: var(--primary-text);
   border-radius: 20px;
   padding: 4px 12px;
   font-size: 0.85rem;
@@ -687,7 +687,7 @@ footer {
 }
 
 .icon-button:hover {
-  background-color: rgba(120, 200, 80, 0.28);
+  background-color: var(--primary);
 }
 
 .user-icon {
@@ -696,12 +696,12 @@ footer {
 
 #logout-button {
   padding: 3px 10px;
-  background-color: rgba(120, 200, 80, 0.18);
-  color: var(--primary-dark);
+  background-color: rgba(63, 127, 36, 0.9);
+  color: var(--primary-text);
   font-size: 0.8rem;
   border-radius: 20px;
 }
 
 #logout-button:hover {
-  background-color: rgba(120, 200, 80, 0.28);
+  background-color: var(--primary);
 }
