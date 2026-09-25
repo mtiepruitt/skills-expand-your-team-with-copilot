@@ -480,6 +480,33 @@ button {
     animation: none;
     background-image: none;
   }
+
+  .skeleton-line {
+    animation: none;
+  }
+
+  .activity-card,
+  .register-button,
+  button,
+  .tooltip .tooltip-text,
+  .modal,
+  .modal-content,
+  .search-box input,
+  .search-box button,
+  .category-filter,
+  .day-filter,
+  .time-filter,
+  .reset-button,
+  .icon-button,
+  #logout-button {
+    transition: none;
+  }
+
+  .activity-card:hover,
+  .modal-content,
+  .modal.show .modal-content {
+    transform: none;
+  }
 }
 
 /* Modal animation */
