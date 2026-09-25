@@ -475,6 +475,13 @@ button {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+}
+
 /* Modal animation */
 .modal {
   position: fixed;
