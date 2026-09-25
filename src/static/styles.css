@@ -478,6 +478,7 @@ button {
 @media (prefers-reduced-motion: reduce) {
   #activities-container::before {
     animation: none;
+    background-image: none;
   }
 }
 
