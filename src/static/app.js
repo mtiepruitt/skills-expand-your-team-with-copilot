@@ -72,10 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareUrl = new URL(window.location.href);
     shareUrl.searchParams.set("activity", activityName);
 
+    const title = `Mergington Activity: ${activityName}`;
+    const text = `Check out ${activityName} at Mergington High School. ${formatSchedule(details)}.`;
+
     return {
-      title: `Mergington Activity: ${activityName}`,
-      text: `Check out ${activityName} at Mergington High School. ${formatSchedule(details)}.`,
+      title,
+      text,
       url: shareUrl.toString(),
+      clipboardText: `${title}\n${text}\n${shareUrl.toString()}`,
     };
   }
 
@@ -117,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      await copyTextToClipboard(shareDetails.url);
+      await copyTextToClipboard(shareDetails.clipboardText);
       showMessage(`Link copied for ${activityName}.`, "success");
     } catch (error) {
       if (error && error.name === "AbortError") {
