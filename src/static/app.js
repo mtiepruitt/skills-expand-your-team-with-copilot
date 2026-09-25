@@ -632,6 +632,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const difficultyLabel =
       typeof details.difficulty === "string" ? details.difficulty.trim() : "";
     const difficultyInfo = difficultyStyles[difficultyLabel] || null;
+    const escapedDescription = escapeHtml(details.description);
 
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
@@ -668,7 +669,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ${tagHtml}
       <h4>${name}</h4>
       ${difficultyTagHtml}
-      <p>${details.description}</p>
+      <p>${escapedDescription}</p>
       <p class="tooltip">
         <strong>Schedule:</strong> ${formattedSchedule}
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
