@@ -44,7 +44,11 @@ def get_activities(
     if difficulty:
         normalized_difficulty = difficulty.strip().lower()
         if normalized_difficulty == "unspecified":
-            query["difficulty"] = {"$exists": False}
+            query["$or"] = [
+                {"difficulty": {"$exists": False}},
+                {"difficulty": None},
+                {"difficulty": ""}
+            ]
         else:
             difficulty_levels = {
                 "beginner": "Beginner",
