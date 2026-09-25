@@ -59,15 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateSharedActivityLink(activityName) {
-    const url = new URL(window.location.pathname, window.location.origin);
+    const url = new URL(window.location.href);
     if (activityName) {
       url.searchParams.set("activity", activityName);
+    } else {
+      url.searchParams.delete("activity");
     }
     window.history.replaceState({}, "", url);
   }
 
   function buildShareDetails(activityName, details) {
-    const shareUrl = new URL(window.location.pathname, window.location.origin);
+    const shareUrl = new URL(window.location.href);
     shareUrl.searchParams.set("activity", activityName);
 
     const title = `Mergington Activity: ${activityName}`;
@@ -950,6 +952,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     if (!activityCard) {
+      setHighlightedActivity("");
       return;
     }
 
