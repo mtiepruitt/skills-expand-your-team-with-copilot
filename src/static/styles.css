@@ -91,6 +91,8 @@ header h2 {
   margin-top: 16px;
   position: relative;
   z-index: 1;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .mascot {
@@ -104,6 +106,18 @@ header h2 {
 
 .mascot-wide {
   width: min(140px, 30vw);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 main {
