@@ -465,24 +465,25 @@ button {
 
 @media (prefers-reduced-motion: reduce) {
   #activities-container::before {
-    animation: none;
-    background-image: none;
+    animation: none !important;
+    background-image: none !important;
   }
 
   .skeleton-line {
-    animation: none;
+    animation: none !important;
   }
 
   .activity-card,
   .modal,
   .modal-content {
-    transition: none;
+    animation: none !important;
+    transition: none !important;
   }
 
   .activity-card:hover,
   .modal-content,
   .modal.show .modal-content {
-    transform: none;
+    transform: none !important;
   }
 }
 
