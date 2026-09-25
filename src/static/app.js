@@ -110,13 +110,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const shareDetails = buildShareDetails(activityName, details);
+    const sharePayload = {
+      title: shareDetails.title,
+      text: shareDetails.text,
+      url: shareDetails.url,
+    };
     highlightedActivity = activityName;
     hasFocusedSharedActivity = false;
     updateSharedActivityLink(activityName);
 
     try {
       if (navigator.share) {
-        await navigator.share(shareDetails);
+        await navigator.share(sharePayload);
         showMessage(`Shared ${activityName}.`, "success");
         return;
       }
@@ -128,8 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      console.error("Error sharing activity:", error);
-      showMessage("Sharing was unavailable. Please try again.", "error");
+      try {
+        await copyTextToClipboard(shareDetails.clipboardText);
+        showMessage(`Link copied for ${activityName}.`, "success");
+      } catch (copyError) {
+        console.error("Error sharing activity:", error);
+        console.error("Error copying shared activity:", copyError);
+        showMessage("Sharing was unavailable. Please try again.", "error");
+      }
     }
   }
 
