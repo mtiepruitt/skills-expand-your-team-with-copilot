@@ -29,13 +29,8 @@ def init_database():
             activity_difficulty = details.get("difficulty")
             if activity_difficulty:
                 activities_collection.update_one(
-                    {"_id": name},
+                    {"_id": name, "difficulty": {"$exists": False}},
                     {"$set": {"difficulty": activity_difficulty}}
-                )
-            else:
-                activities_collection.update_one(
-                    {"_id": name},
-                    {"$unset": {"difficulty": ""}}
                 )
             
     # Initialize teacher accounts if empty

@@ -95,6 +95,16 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  function escapeHtml(text) {
+    const value = `${text}`;
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
   async function copyTextToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(text);
@@ -619,9 +629,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Determine activity type
     const activityType = getActivityType(name, details.description);
     const typeInfo = activityTypes[activityType];
-    const difficultyInfo = details.difficulty
-      ? difficultyStyles[details.difficulty]
-      : null;
+    const difficultyLabel =
+      typeof details.difficulty === "string" ? details.difficulty.trim() : "";
+    const difficultyInfo = difficultyStyles[difficultyLabel] || null;
 
     // Format the schedule using the new helper function
     const formattedSchedule = formatSchedule(details);
@@ -636,7 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const difficultyTagHtml = difficultyInfo
       ? `
         <span class="difficulty-tag" style="background-color: ${difficultyInfo.color}; color: ${difficultyInfo.textColor}">
-          ${details.difficulty}
+          ${escapeHtml(difficultyLabel)}
         </span>
       `
       : "";
