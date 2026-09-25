@@ -464,21 +464,19 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  header,
-  header *,
-  #activities-container,
-  #activities-container *,
-  .modal,
-  .modal * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0s !important;
-    scroll-behavior: auto !important;
-  }
-
   #activities-container::before {
     animation: none;
     background-image: none;
+  }
+
+  .skeleton-line {
+    animation: none;
+  }
+
+  .activity-card,
+  .modal,
+  .modal-content {
+    transition: none;
   }
 
   .activity-card:hover,
