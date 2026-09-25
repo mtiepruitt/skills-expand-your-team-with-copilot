@@ -476,30 +476,18 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+
   #activities-container::before {
     animation: none;
     background-image: none;
-  }
-
-  .skeleton-line {
-    animation: none;
-  }
-
-  .activity-card,
-  .register-button,
-  button,
-  .tooltip .tooltip-text,
-  .modal,
-  .modal-content,
-  .search-box input,
-  .search-box button,
-  .category-filter,
-  .day-filter,
-  .time-filter,
-  .reset-button,
-  .icon-button,
-  #logout-button {
-    transition: none;
   }
 
   .activity-card:hover,
