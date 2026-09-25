@@ -475,11 +475,13 @@ button {
 
   .activity-card,
   .modal,
+  .modal.show,
   .modal-content,
   .mascot-showcase,
   .mascot-showcase .mascot {
     animation: none !important;
     transition: none !important;
+    transition-property: none !important;
   }
 
   .activity-card:hover,
