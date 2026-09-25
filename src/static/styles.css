@@ -489,6 +489,11 @@ button {
   .modal.show .modal-content {
     transform: none !important;
   }
+
+  .modal,
+  .modal.show {
+    transition: opacity 0s !important;
+  }
 }
 
 /* Modal animation */
